@@ -29,8 +29,14 @@ set_target_properties(appSofomo PROPERTIES
     WIN32_EXECUTABLE TRUE
 )
 
+enable_testing()
+
 if(NOT TARGET ip2Data)
 	add_subdirectory(IP2Data)
+endif()
+
+if(NOT TARGET tests)
+	add_subdirectory(tests)
 endif()
 
 target_link_libraries(appSofomo

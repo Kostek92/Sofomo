@@ -5,14 +5,14 @@ project(IP2Data)
 add_library(${PROJECT_NAME}
 	src/IP2DataManager.cpp
 	src/Server.cpp
-	include/public/IP2Data/IP2DataManager.h
-	include/private/Server.h)
+	include/IP2Data/IP2DataManager.h
+	include/IP2Data/Server.h
+	include/IP2Data/IpData.h)
 
 target_link_libraries(${PROJECT_NAME}
-	PRIVATE Qt6::Core)
+	PRIVATE Qt6::Core Qt6::Network)
 
-target_include_directories(${PROJECT_NAME} PUBLIC include/public/)
-target_include_directories(${PROJECT_NAME} PRIVATE include/public/IP2Data)
-target_include_directories(${PROJECT_NAME} PRIVATE include/private)
+target_include_directories(${PROJECT_NAME} PUBLIC include)
+target_include_directories(${PROJECT_NAME} PRIVATE include/IP2Data)
 
 

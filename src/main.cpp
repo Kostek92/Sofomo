@@ -1,6 +1,5 @@
 #include <QGuiApplication>
 #include <QQmlApplicationEngine>
-#include "IP2Data/IP2DataManager.h"
 
 int main(int argc, char *argv[])
 {
@@ -15,7 +14,5 @@ int main(int argc, char *argv[])
         []() { QCoreApplication::exit(-1); },
         Qt::QueuedConnection);
     engine.load(url);
-    IP2DataManager testObj;
-
     return app.exec();
 }
