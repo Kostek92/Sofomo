@@ -5,7 +5,7 @@
 #include <QJsonDocument>
 #include <QJsonObject>
 
-namespace ip2Data::Server
+namespace ip2Data::server
 {
 Server::Server(QObject *parent)
     : QObject{parent}

@@ -13,7 +13,7 @@ namespace ip2Data
 
     signals:
     private:
-        Server::Server _server;
+        server::Server _server;
     };
 
 }

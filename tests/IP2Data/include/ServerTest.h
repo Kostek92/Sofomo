@@ -10,7 +10,7 @@ public:
     ServerTest(QObject* parent = nullptr)
         : QObject(parent)
         ,_server{this}
-        ,_spy(&_server, &Server::Server::signalDataReady)
+        ,_spy(&_server, &server::Server::signalDataReady)
     {
     }
 
@@ -23,7 +23,7 @@ private slots:
 private:
     void testData(const IpData& expectedData);
 
-    Server::Server _server;
+    server::Server _server;
     QSignalSpy _spy;
 };
 }

@@ -17,5 +17,5 @@ int main(int argc, char *argv[])
 }
 
 //Comment main and comment out below for AutoTest plugin
-//QTEST_MAIN(ip2Data::ServerTest)
+//QTEST_MAIN(ip2Data::serverTest)
 //QTEST_MAIN(ip2Data::WebAddressTest)

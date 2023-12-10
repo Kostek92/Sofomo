@@ -5,7 +5,7 @@
 #include <QObject>
 #include "IpData.h"
 
-namespace ip2Data::Server
+namespace ip2Data::server
 {
 class Server : public QObject
 {

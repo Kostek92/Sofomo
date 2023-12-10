@@ -3,7 +3,7 @@ namespace ip2Data
 {
 void ServerTest::testData(const IpData& expectedData)
 {
-    connect(&_server, &Server::Server::signalDataReady, this, [&expectedData](const IpData serverResponse)
+    connect(&_server, &server::Server::signalDataReady, this, [&expectedData](const IpData serverResponse)
             {
                 QCOMPARE(serverResponse, expectedData);
             });
