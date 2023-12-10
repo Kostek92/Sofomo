@@ -6,7 +6,7 @@ namespace ip2Data
 {
 
 const QString DatabaseManagerTest::TEST_DATABASE_NAME = "testdb";
-const IpData DatabaseManagerTest::TEST_DATA{.ip = "123.123.123.123", .country = "Poland", .capital = "Sulechów", .city = "Wrocław", .latitude = 42.0, .longitude = 13.37};
+const GeolocationData DatabaseManagerTest::TEST_DATA{.ip = "123.123.123.123", .country = "Poland", .capital = "Sulechów", .city = "Wrocław", .latitude = 42.0, .longitude = 13.37};
 
 using namespace database;
 void DatabaseManagerTest::insertAndGetDataByIp()
@@ -24,9 +24,9 @@ void DatabaseManagerTest::insertAndGetDataByDomainAddress()
     Q_ASSERT(!ipAddresses.isEmpty());
     const auto ipAddress = ipAddresses.front();
 
-    IpData expectedResult{TEST_DATA};
+    GeolocationData expectedResult{TEST_DATA};
     expectedResult.ip = ipAddress;
-    IpData testDataWithDomainAddress{TEST_DATA};
+    GeolocationData testDataWithDomainAddress{TEST_DATA};
     testDataWithDomainAddress.ip = domainAddress;
 
     DatabaseManager manager(TEST_DATABASE_NAME);
@@ -48,7 +48,7 @@ void DatabaseManagerTest::deleteData()
     QVERIFY(manager.insertData(TEST_DATA));
     QVERIFY(manager.deleteData(TEST_DATA.ip));
     const auto dbData{manager.getData(TEST_DATA.ip)};
-    QVERIFY(dbData == IpData{});
+    QVERIFY(dbData == GeolocationData{});
 }
 
 void DatabaseManagerTest::init()

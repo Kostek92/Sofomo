@@ -30,7 +30,7 @@ DatabaseManager::~DatabaseManager()
     closeDatabaseConnection();
 }
 
-bool DatabaseManager::insertData(const IpData &data) const
+bool DatabaseManager::insertData(const GeolocationData &data) const
 {
     const auto ipAddresses(webAddress::convertToIp(data.ip));
     if(ipAddresses.isEmpty())
@@ -48,12 +48,12 @@ bool DatabaseManager::insertData(const IpData &data) const
     return executeQuery(sqlQuery);
 }
 
-IpData DatabaseManager::getData(const QString &address) const
+GeolocationData DatabaseManager::getData(const QString &address) const
 {
     const auto ipAddresses(webAddress::convertToIp(address));
     if(ipAddresses.isEmpty())
     {
-        return IpData{};
+        return GeolocationData{};
     }
     QSqlQuery sqlQuery;
     sqlQuery.prepare("SELECT + " + ALL_FIELDS + " FROM " + TABLE_NAME + " WHERE ip = ?;");
@@ -70,10 +70,10 @@ IpData DatabaseManager::getData(const QString &address) const
             const auto city{sqlQuery.value(3).toString()};
             const auto latitude{sqlQuery.value(4).toDouble()};
             const auto longitude{sqlQuery.value(5).toDouble()};
-            return IpData{.ip = ip, .country = country , .capital = capital , .city = city , .latitude = latitude, .longitude = longitude};
+            return GeolocationData{.ip = ip, .country = country , .capital = capital , .city = city , .latitude = latitude, .longitude = longitude};
         }
     }
-    return IpData{};
+    return GeolocationData{};
 }
 
 bool DatabaseManager::deleteData(const QString &address) const

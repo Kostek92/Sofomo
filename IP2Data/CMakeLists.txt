@@ -11,7 +11,7 @@ add_library(${PROJECT_NAME}
 	include/IP2Data/IP2DataManager.h
 	include/IP2Data/Server.h
 	include/IP2Data/WebAddress.h
-	include/IP2Data/IpData.h
+	include/IP2Data/GeolocationData.h
 	include/IP2Data/DatabaseManager.h
 )
 

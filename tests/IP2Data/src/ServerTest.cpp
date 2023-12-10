@@ -7,10 +7,10 @@ namespace ip2Data
 void ServerTest::testDataReadyWithIp()
 {
     const QString ipToTest{"212.77.98.9"};
-    const IpData& expectedData {.ip = ipToTest, .country = "Poland", .capital = "Warsaw", .city = "Gdańsk", .latitude = 54.31, .longitude = 18.63};
+    const GeolocationData& expectedData {.ip = ipToTest, .country = "Poland", .capital = "Warsaw", .city = "Gdańsk", .latitude = 54.31, .longitude = 18.63};
     server::Server server(this);
     QSignalSpy spy(&server, &server::Server::signalDataReady);
-    connect(&server, &server::Server::signalDataReady, this, [expectedData](const IpData serverResponse)
+    connect(&server, &server::Server::signalDataReady, this, [expectedData](const GeolocationData serverResponse)
             {
                 QCOMPARE(serverResponse, expectedData);
             });
@@ -21,10 +21,10 @@ void ServerTest::testDataReadyWithIp()
 void ServerTest::testDataReadyWithDomainAddress()
 {    
     const QString ipToTest{"212.77.98.9"};
-    const IpData& expectedData {.ip = ipToTest, .country = "Poland", .capital = "Warsaw", .city = "Gdańsk", .latitude = 54.31, .longitude = 18.63};
+    const GeolocationData& expectedData {.ip = ipToTest, .country = "Poland", .capital = "Warsaw", .city = "Gdańsk", .latitude = 54.31, .longitude = 18.63};
     server::Server server(this);
     QSignalSpy spy(&server, &server::Server::signalDataReady);
-    connect(&server, &server::Server::signalDataReady, this, [expectedData](const IpData serverResponse)
+    connect(&server, &server::Server::signalDataReady, this, [expectedData](const GeolocationData serverResponse)
             {
                 QCOMPARE(serverResponse, expectedData);
             });
@@ -35,10 +35,10 @@ void ServerTest::testDataReadyWithDomainAddress()
 void ServerTest::testInvalidIp()
 {
     const QString ipToTest{"127.0.0.1"};
-    const IpData& expectedData {.ip = ipToTest};
+    const GeolocationData& expectedData {.ip = ipToTest};
     server::Server server(this);
     QSignalSpy spy(&server, &server::Server::signalDataReady);
-    connect(&server, &server::Server::signalDataReady, this, [expectedData](const IpData serverResponse)
+    connect(&server, &server::Server::signalDataReady, this, [expectedData](const GeolocationData serverResponse)
             {
                 QCOMPARE(serverResponse, expectedData);
             });

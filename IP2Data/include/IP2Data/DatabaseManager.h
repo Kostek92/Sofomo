@@ -1,6 +1,6 @@
 #pragma once
 
-#include "IpData.h"
+#include "GeolocationData.h"
 #include <QSqlQuery>
 
 namespace ip2Data::database
@@ -11,8 +11,8 @@ class DatabaseManager
 public:
     DatabaseManager(const QString& databaseName);
     ~DatabaseManager();
-    bool insertData(const IpData& data) const;
-    IpData getData(const QString& address) const;
+    bool insertData(const GeolocationData& data) const;
+    GeolocationData getData(const QString& address) const;
     bool deleteData(const QString& address) const;
 
 private:

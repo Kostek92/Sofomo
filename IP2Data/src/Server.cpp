@@ -49,7 +49,7 @@ void Server::parseData()
             const auto capital = locationObj["capital"].toString();
             const auto latitude = jsonDocument["latitude"].toDouble();
             const auto longitude = jsonDocument["longitude"].toDouble();
-            emit signalDataReady( IpData{.ip = ip, .country = countryName , .capital = capital, .city = city, .latitude = latitude, .longitude = longitude} );
+            emit signalDataReady( GeolocationData{.ip = ip, .country = countryName , .capital = capital, .city = city, .latitude = latitude, .longitude = longitude} );
         }
         else
         {

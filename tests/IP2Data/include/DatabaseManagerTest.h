@@ -1,5 +1,5 @@
 #include <QTest>
-#include "IP2Data/IpData.h"
+#include "IP2Data/GeolocationData.h"
 namespace ip2Data
 {
 class DatabaseManagerTest: public QObject
@@ -22,6 +22,6 @@ private slots:
 private:
     void removeDatabaseFile() const;
     static const QString TEST_DATABASE_NAME;
-    static const IpData TEST_DATA;
+    static const GeolocationData TEST_DATA;
 };
 }

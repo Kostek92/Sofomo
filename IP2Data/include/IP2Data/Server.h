@@ -3,7 +3,7 @@
 #include <QUrl>
 #include <QNetworkAccessManager>
 #include <QObject>
-#include "IpData.h"
+#include "GeolocationData.h"
 
 namespace ip2Data::server
 {
@@ -15,7 +15,7 @@ public:
     void getData(const QString& ip);
 
 signals:
-    void signalDataReady(IpData data);
+    void signalDataReady(GeolocationData data);
 
 private slots:
     void parseData();

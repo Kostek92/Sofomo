@@ -7,7 +7,7 @@ namespace ip2Data
 namespace{
 using coordinatesType = double;
 }
-struct IpData
+struct GeolocationData
 {
     QString ip;
     QString country;
@@ -15,7 +15,7 @@ struct IpData
     QString city;
     coordinatesType latitude{0.0};
     coordinatesType longitude{0.0};
-    bool operator==(const IpData& data) const
+    bool operator==(const GeolocationData& data) const
     {
         return (ip == data.ip
                 && country == data.country
@@ -24,7 +24,7 @@ struct IpData
                 && areCoordinatesSame(latitude, data.latitude)
                 && areCoordinatesSame(longitude, data.longitude));
     }
-    bool operator!=(const IpData& data) const
+    bool operator!=(const GeolocationData& data) const
     {
         return !(*this == data);
     }

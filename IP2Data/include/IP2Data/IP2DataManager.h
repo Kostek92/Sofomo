@@ -2,6 +2,7 @@
 
 #include <QObject>
 #include "Server.h"
+#include "DatabaseManager.h"
 
 namespace ip2Data
 {
@@ -14,6 +15,7 @@ namespace ip2Data
     signals:
     private:
         server::Server _server;
+        database::DatabaseManager dbManager;
     };
 
 }
