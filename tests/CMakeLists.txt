@@ -17,8 +17,8 @@ add_executable(${PROJECT_NAME}
 add_test(NAME ServerTest COMMAND ServerTest)
 add_test(NAME WebAddressTest COMMAND WebAddressTest)
 
-target_include_directories(${PROJECT_NAME} PUBLIC IP2Data/include)
-target_include_directories(${PROJECT_NAME} PUBLIC IP2Data/src)
+target_include_directories(${PROJECT_NAME} PRIVATE IP2Data/include)
+target_include_directories(${PROJECT_NAME} PRIVATE IP2Data/src)
 
 target_link_libraries(${PROJECT_NAME}
  PRIVATE
