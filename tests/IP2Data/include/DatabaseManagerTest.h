@@ -12,7 +12,8 @@ public:
     }
 
 private slots:
-    void insertAndGetData();
+    void insertAndGetDataByIp();
+    void insertAndGetDataByDomainAddress();
     void insertSameDataTwice();
     void deleteData();
     void init();

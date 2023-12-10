@@ -1,4 +1,5 @@
 #include "DatabaseManager.h"
+#include "WebAddress.h"
 #include <QSqlDatabase>
 #include <QSqlError>
 #include <QDebug>
@@ -26,15 +27,19 @@ DatabaseManager::DatabaseManager(const QString& databaseName)
 
 DatabaseManager::~DatabaseManager()
 {
-    qDebug() << "closing";
     closeDatabaseConnection();
 }
 
 bool DatabaseManager::insertData(const IpData &data) const
 {
+    const auto ipAddresses(webAddress::convertToIp(data.ip));
+    if(ipAddresses.isEmpty())
+    {
+        return false;
+    }
     QSqlQuery sqlQuery;
     sqlQuery.prepare("INSERT INTO  " + TABLE_NAME + " (" + ALL_FIELDS + ") VALUES (?,?,?,?,?,?);");
-    sqlQuery.addBindValue(data.ip);
+    sqlQuery.addBindValue(ipAddresses.first());
     sqlQuery.addBindValue(data.country);
     sqlQuery.addBindValue(data.capital);
     sqlQuery.addBindValue(data.city);
@@ -45,9 +50,14 @@ bool DatabaseManager::insertData(const IpData &data) const
 
 IpData DatabaseManager::getData(const QString &address) const
 {
+    const auto ipAddresses(webAddress::convertToIp(address));
+    if(ipAddresses.isEmpty())
+    {
+        return IpData{};
+    }
     QSqlQuery sqlQuery;
     sqlQuery.prepare("SELECT + " + ALL_FIELDS + " FROM " + TABLE_NAME + " WHERE ip = ?;");
-    sqlQuery.addBindValue(address);
+    sqlQuery.addBindValue(ipAddresses.first());
 
     const bool queryExecuted = executeQuery(sqlQuery);
     if (queryExecuted)
@@ -68,9 +78,14 @@ IpData DatabaseManager::getData(const QString &address) const
 
 bool DatabaseManager::deleteData(const QString &address) const
 {
+    const auto ipAddresses(webAddress::convertToIp(address));
+    if(ipAddresses.isEmpty())
+    {
+        return false;
+    }
     QSqlQuery sqlQuery;
     sqlQuery.prepare("DELETE FROM " + TABLE_NAME + " WHERE ip = ?;");
-    sqlQuery.addBindValue(address);
+    sqlQuery.addBindValue(ipAddresses.first());
     return executeQuery(sqlQuery);
 }
 

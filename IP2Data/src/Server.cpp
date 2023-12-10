@@ -15,8 +15,8 @@ Server::Server(QObject *parent)
 
 void Server::getData(const QString &address)
 {
-    const auto ipAddress(webAddress::convertToIp(address));
-    if(ipAddress.isEmpty())
+    const auto ipAddresses(webAddress::convertToIp(address));
+    if(ipAddresses.isEmpty())
     {
         return;
     }
@@ -28,7 +28,7 @@ void Server::getData(const QString &address)
     QUrlQuery query;
     query.addQueryItem("access_key", _conversionServerAPIKey);
     query.addQueryItem("output", "json");
-    const QNetworkRequest req (_ipConversionServerAddress + ipAddress.first() + "?" + query.toString());
+    const QNetworkRequest req (_ipConversionServerAddress + ipAddresses.first() + "?" + query.toString());
     m_reply = _networkManager.get(req);
     connect(m_reply, &QNetworkReply::finished, this, &Server::parseData);
 }

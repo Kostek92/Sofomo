@@ -6,6 +6,11 @@ class WebAddressTest: public QObject
 {
     Q_OBJECT
 
+public:
+    explicit WebAddressTest(QObject* parent = nullptr)
+        : QObject(parent)
+    {
+    }
 private slots:
     void convertFromDomain();
     void convertFromHttpDomain();
