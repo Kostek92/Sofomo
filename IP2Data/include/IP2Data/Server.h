@@ -21,8 +21,6 @@ private slots:
     void parseData();
 
 private:
-    bool validateIp(const QString& ip) const;
-
     QNetworkAccessManager _networkManager;
     QNetworkReply *m_reply = nullptr;
     const QString _ipConversionServerAddress = "http://api.ipstack.com/";

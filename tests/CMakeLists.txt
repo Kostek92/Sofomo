@@ -7,10 +7,19 @@ set(CMAKE_AUTOMOC ON)
 
 enable_testing(true)
 
-add_executable(tests src/IP2Data/ServerTest.cpp)
+add_executable(${PROJECT_NAME}
+	IP2Data/src/ServerTest.cpp
+	IP2Data/src/WebAddressTest.cpp
+	IP2Data/src/main.cpp
+	IP2Data/include/ServerTest.h
+	IP2Data/include/WebAddressTest.h
+)
 add_test(NAME ServerTest COMMAND ServerTest)
+add_test(NAME WebAddressTest COMMAND WebAddressTest)
 
-target_link_libraries(tests
+target_include_directories(${PROJECT_NAME} PUBLIC IP2Data/include)
+target_include_directories(${PROJECT_NAME} PUBLIC IP2Data/src)
+
+target_link_libraries(${PROJECT_NAME}
  PRIVATE
-  Qt::Test Qt6::Core Qt6::Network
-  IP2Data)
+  Qt::Test Qt6::Core Qt6::Network IP2Data)

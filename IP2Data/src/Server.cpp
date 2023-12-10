@@ -1,4 +1,5 @@
 #include "Server.h"
+#include "WebAddress.h"
 #include <QNetworkReply>
 #include <QUrlQuery>
 #include <QJsonDocument>
@@ -14,9 +15,9 @@ Server::Server(QObject *parent)
 
 void Server::getData(const QString &address)
 {
-    if(!validateIp(address))
+    const auto ipAddress(webAddress::convertToIp(address));
+    if(ipAddress.isEmpty())
     {
-        qCritical() << "Invalid ip address to check:" << address;
         return;
     }
     if (m_reply) {
@@ -27,7 +28,7 @@ void Server::getData(const QString &address)
     QUrlQuery query;
     query.addQueryItem("access_key", _conversionServerAPIKey);
     query.addQueryItem("output", "json");
-    const QNetworkRequest req (_ipConversionServerAddress + address + "?" + query.toString());
+    const QNetworkRequest req (_ipConversionServerAddress + ipAddress.first() + "?" + query.toString());
     m_reply = _networkManager.get(req);
     connect(m_reply, &QNetworkReply::finished, this, &Server::parseData);
 }
@@ -58,11 +59,5 @@ void Server::parseData()
     else if (m_reply->error() != QNetworkReply::OperationCanceledError) {
         qCritical() << "Reply failed, eror:" << m_reply->errorString();
     }
-}
-
-bool Server::validateIp(const QString &ip) const
-{
-    QHostAddress address(ip);
-    return !address.isNull();
 }
 }
