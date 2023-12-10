@@ -7,10 +7,12 @@ add_library(${PROJECT_NAME}
 	src/IP2DataManager.cpp
 	src/Server.cpp
 	src/WebAddress.cpp
+	src/DatabaseManager.cpp
 	include/IP2Data/IP2DataManager.h
 	include/IP2Data/Server.h
 	include/IP2Data/WebAddress.h
 	include/IP2Data/IpData.h
+	include/IP2Data/DatabaseManager.h
 )
 
 target_link_libraries(${PROJECT_NAME}

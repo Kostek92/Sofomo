@@ -5,6 +5,7 @@ project(Sofomo VERSION 0.1 LANGUAGES CXX)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 find_package(Qt6 6.4 REQUIRED COMPONENTS Quick)
+find_package(Qt6 REQUIRED COMPONENTS Sql)
 
 qt_standard_project_setup()
 
@@ -29,7 +30,10 @@ set_target_properties(appSofomo PROPERTIES
     WIN32_EXECUTABLE TRUE
 )
 
-enable_testing()
+target_link_libraries(appSofomo
+	PRIVATE Qt6::Quick Qt6::Sql
+	IP2Data
+)
 
 if(NOT TARGET ip2Data)
 	add_subdirectory(IP2Data)
@@ -39,10 +43,7 @@ if(NOT TARGET tests)
 	add_subdirectory(tests)
 endif()
 
-target_link_libraries(appSofomo
-	PRIVATE Qt6::Quick
-	IP2Data
-)
+
 
 include(GNUInstallDirs)
 install(TARGETS appSofomo
