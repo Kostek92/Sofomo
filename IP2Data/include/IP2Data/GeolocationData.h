@@ -28,6 +28,10 @@ struct GeolocationData
     {
         return !(*this == data);
     }
+    bool isEmpty() const
+    {
+        return *this == GeolocationData{};
+    }
 
 private:
     static constexpr double coordinatesPrecision = 0.01;

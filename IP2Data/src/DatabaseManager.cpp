@@ -89,6 +89,26 @@ bool DatabaseManager::deleteData(const QString &address) const
     return executeQuery(sqlQuery);
 }
 
+bool DatabaseManager::containsData(const QString &address) const
+{
+    const auto ipAddresses(webAddress::convertToIp(address));
+    if(ipAddresses.isEmpty())
+    {
+        return false;
+    }
+    QSqlQuery sqlQuery;
+    sqlQuery.prepare("SELECT EXISTS(SELECT 1 FROM " + TABLE_NAME + " WHERE ip = ?);");
+    sqlQuery.addBindValue(ipAddresses.first());
+    if (executeQuery(sqlQuery))
+    {
+        if (sqlQuery.next())
+        {
+            return sqlQuery.value(0).toBool();
+        }
+    }
+    return false;
+}
+
 bool DatabaseManager::executeQuery(QSqlQuery &sqlQuery) const
 {
     QSqlDatabase db = QSqlDatabase::database();

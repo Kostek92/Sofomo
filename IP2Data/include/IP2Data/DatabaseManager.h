@@ -14,6 +14,7 @@ public:
     bool insertData(const GeolocationData& data) const;
     GeolocationData getData(const QString& address) const;
     bool deleteData(const QString& address) const;
+    bool containsData(const QString& address) const;
 
 private:
     bool executeQuery(QSqlQuery& sqlQuery) const;

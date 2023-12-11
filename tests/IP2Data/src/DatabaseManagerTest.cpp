@@ -51,6 +51,14 @@ void DatabaseManagerTest::deleteData()
     QVERIFY(dbData == GeolocationData{});
 }
 
+void DatabaseManagerTest::containsData()
+{
+    DatabaseManager manager(TEST_DATABASE_NAME);
+    QVERIFY(!manager.containsData(TEST_DATA.ip));
+    manager.insertData(TEST_DATA);
+    QVERIFY(manager.containsData(TEST_DATA.ip));
+}
+
 void DatabaseManagerTest::init()
 {
     removeDatabaseFile();

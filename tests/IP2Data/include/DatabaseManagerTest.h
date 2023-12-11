@@ -16,6 +16,7 @@ private slots:
     void insertAndGetDataByDomainAddress();
     void insertSameDataTwice();
     void deleteData();
+    void containsData();
     void init();
     void cleanupTestCase();
 

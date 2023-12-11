@@ -16,7 +16,14 @@ qt_add_executable(appSofomo
 qt_add_qml_module(appSofomo
 	URI Sofomo
 	VERSION 1.0
-	QML_FILES src/Main.qml
+	QML_FILES
+	src/Main.qml
+	src/GeolocationDataBox.qml
+	SOURCES
+	src/GeolocationDataInfo.cpp
+	src/AppController.cpp
+	include/GeolocationDataInfo.h
+	include/AppController.h
 )
 
 # Qt for iOS sets MACOSX_BUNDLE_GUI_IDENTIFIER automatically since Qt 6.1.
@@ -29,6 +36,9 @@ set_target_properties(appSofomo PROPERTIES
     MACOSX_BUNDLE TRUE
     WIN32_EXECUTABLE TRUE
 )
+
+target_include_directories(appSofomo PRIVATE include)
+
 
 target_link_libraries(appSofomo
 	PRIVATE Qt6::Quick Qt6::Sql
