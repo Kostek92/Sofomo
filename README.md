@@ -20,9 +20,13 @@ App is created with CMakeList.
 Example compilation with ninja:
 
 download repo
+
 mkdir buildFolder
+
 cd buildFolder
+
 cmake -G Ninja ../Sofomo
+
 ninja
 
 Run unit tests:
