@@ -9,7 +9,7 @@ Window {
     width: 640
     height: 480
     visible: true
-    title: qsTr("Hello World")
+    title: qsTr("Sofomo")
 
     GeolocationDataBox {
         id: geoDataBox
@@ -99,21 +99,4 @@ Window {
             }
         }
     }
-    Text {
-        id: statusInfo
-        text: AppController.statusInfo
-        anchors
-        {
-            top:buttonsRow.bottom
-            topMargin:15
-            left:buttonsRow.left
-        }
-        font.pixelSize: 17
-        font.italic: true
-
-    }
-
-
-
-
 }

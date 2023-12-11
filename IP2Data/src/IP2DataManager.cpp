@@ -1,4 +1,5 @@
 #include "IP2DataManager.h"
+#include "WebAddress.h"
 
 namespace ip2Data
 {
@@ -11,18 +12,18 @@ IP2DataManager::IP2DataManager(QObject *parent)
     connect(&_server, &server::Server::signalErrorOccurred, this, &IP2DataManager::onErrorOccured);
 }
 
-bool IP2DataManager::saveData(const GeolocationData &data) const
-{
-    return _dbManager.insertData(data);
-}
-
 void IP2DataManager::getData(const QString &address)
 {
-    auto data = _dbManager.getData(address);
+    const auto ipAddress = resolveIp(address);
+    if(ipAddress.isEmpty())
+    {
+        return;
+    }
+    auto data = _dbManager.getData(ipAddress);
     if(data.isEmpty())
     {
         qInfo() << "Data" << address << "not found in database. Checking server";
-       _server.getData(address);
+       _server.getData(ipAddress);
     }
     else
     {
@@ -31,11 +32,16 @@ void IP2DataManager::getData(const QString &address)
     }
 }
 
-bool IP2DataManager::deleteData(const QString &address) const
+bool IP2DataManager::deleteData(const QString &address)
 {
-    if(_dbManager.containsData(address))
+    const auto ipAddress = resolveIp(address);
+    if(ipAddress.isEmpty())
     {
-        if(_dbManager.deleteData(address))
+        return false;
+    }
+    if(_dbManager.containsData(ipAddress))
+    {
+        if(_dbManager.deleteData(ipAddress))
         {
             qInfo() << "Data" << address << "deleted from database";
             return true;
@@ -54,6 +60,7 @@ void IP2DataManager::onDataReady(GeolocationData data)
     }
     else
     {
+        data.ip = resolveIp(data.ip);
         qInfo() << "Data" << data.ip << "found on server. Saving into database";
         _dbManager.insertData(data);
         emit signalDataReady(data);
@@ -64,5 +71,17 @@ void IP2DataManager::onErrorOccured()
 {
     qInfo() << "Data not found";
     emit signalErrorOccurred();
+}
+
+QString IP2DataManager::resolveIp(const QString &address)
+{
+    const auto ipAddresses(webAddress::convertToIp(address));
+    if(ipAddresses.isEmpty())
+    {
+        qInfo() << "Cannot resolve IP address from" << address;
+        emit signalErrorOccurred();
+        return QString();
+    }
+    return ipAddresses.first();
 }
 }

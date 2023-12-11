@@ -10,7 +10,6 @@ AppController::AppController(QObject *parent)
     setEmptyValues();
 }
 
-
 GeolocationDataInfo *AppController::getCurrentData() const
 {
     return _currentData;
@@ -34,20 +33,12 @@ void AppController::onGetDataClicked(const QString &address)
 void AppController::onDeleteDataClicked(const QString &address)
 {
     onButtonClicked();
-    if(_dataManager->deleteData(address))
-    {
-        setStatusInfo("Address deleted from database");
-    }
-    else
-    {
-        setStatusInfo("Address not found in database");
-    }
+    _dataManager->deleteData(address);
     setProcessing(false);
 }
 
 void AppController::onDataReady(ip2Data::GeolocationData data)
 {
-    setProcessing(false);
     if(!data.isEmpty())
     {
         _currentData->setIp(data.ip);
@@ -57,6 +48,7 @@ void AppController::onDataReady(ip2Data::GeolocationData data)
         _currentData->setLatitude(data.latitude);
         _currentData->setLongitude(data.longitude);
     }
+    setProcessing(false);
 }
 
 void AppController::onErrorOccured()
@@ -77,21 +69,7 @@ void AppController::setEmptyValues()
 
 void AppController::onButtonClicked()
 {
-    setStatusInfo("");
     setProcessing(true);
-}
-
-QString AppController::statusInfo() const
-{
-    return m_statusInfo;
-}
-
-void AppController::setStatusInfo(const QString &newStatusInfo)
-{
-    if (m_statusInfo == newStatusInfo)
-        return;
-    m_statusInfo = newStatusInfo;
-    emit statusInfoChanged();
 }
 
 bool AppController::processing() const
