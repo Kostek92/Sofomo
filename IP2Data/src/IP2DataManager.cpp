@@ -8,6 +8,7 @@ IP2DataManager::IP2DataManager(QObject *parent)
     , _dbManager{"SofomoDb"}
 {
     connect(&_server, &server::Server::signalDataReady, this, &IP2DataManager::onDataReady);
+    connect(&_server, &server::Server::signalErrorOccurred, this, &IP2DataManager::onErrorOccured);
 }
 
 bool IP2DataManager::saveData(const GeolocationData &data) const
@@ -49,12 +50,19 @@ void IP2DataManager::onDataReady(GeolocationData data)
     if(data.isEmpty())
     {
         qInfo() << "Data" << data.ip << "not found on server";
+        emit signalErrorOccurred();
     }
     else
     {
         qInfo() << "Data" << data.ip << "found on server. Saving into database";
         _dbManager.insertData(data);
+        emit signalDataReady(data);
     }
-    emit signalDataReady(data);
+}
+
+void IP2DataManager::onErrorOccured()
+{
+    qInfo() << "Data not found";
+    emit signalErrorOccurred();
 }
 }

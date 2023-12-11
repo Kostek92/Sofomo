@@ -18,6 +18,7 @@ void Server::getData(const QString &address)
     const auto ipAddresses(webAddress::convertToIp(address));
     if(ipAddresses.isEmpty())
     {
+        emit signalErrorOccurred();
         return;
     }
     if (m_reply) {
@@ -58,6 +59,7 @@ void Server::parseData()
     }
     else if (m_reply->error() != QNetworkReply::OperationCanceledError) {
         qCritical() << "Reply failed, eror:" << m_reply->errorString();
+        emit signalErrorOccurred();
     }
 }
 }

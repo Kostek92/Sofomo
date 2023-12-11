@@ -19,6 +19,7 @@ namespace
         return res;
     }
 }
+
 QStringList convertToIp(QString address)
 {
     QHostAddress ipAddress(address);
@@ -34,8 +35,6 @@ QStringList convertToIp(QString address)
     {
         return getIpsAsStrings(resolvedIpInfo.addresses());
     }
-
-    qCritical() << "Couldn't resolve IP of" << address << " " << resolvedIpInfo.errorString();
     return {};
 }
 }

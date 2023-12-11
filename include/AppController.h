@@ -35,6 +35,7 @@ signals:
 
 private slots:
     void onDataReady(ip2Data::GeolocationData data);
+    void onErrorOccured();
 
 private:
     void setEmptyValues();

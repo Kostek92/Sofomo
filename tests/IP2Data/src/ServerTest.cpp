@@ -43,13 +43,14 @@ void ServerTest::testInvalidIp()
                 QCOMPARE(serverResponse, expectedData);
             });
     server.getData(ipToTest);
+    QCOMPARE(spy.wait(5000), true);
 }
 
 void ServerTest::testNotIp()
 {
     server::Server server(this);
-    QSignalSpy spy(&server, &server::Server::signalDataReady);
+    QSignalSpy spy(&server, &server::Server::signalErrorOccurred);
     server.getData("notAnIp");
-    QCOMPARE(spy.wait(3000), false);
+    QCOMPARE(spy.count(), 1);
 }
 }

@@ -5,6 +5,7 @@ AppController::AppController(QObject *parent)
     , _dataManager{new ip2Data::IP2DataManager{parent}}
 {
     connect(_dataManager, &ip2Data::IP2DataManager::signalDataReady, this, &AppController::onDataReady);
+    connect(_dataManager, &ip2Data::IP2DataManager::signalErrorOccurred, this, &AppController::onErrorOccured);
     setCurrentData(new GeolocationDataInfo(parent));
     setEmptyValues();
 }
@@ -25,6 +26,7 @@ void AppController::setCurrentData(GeolocationDataInfo *newCurrentData)
 
 void AppController::onGetDataClicked(const QString &address)
 {
+    setEmptyValues();
     onButtonClicked();
     _dataManager->getData(address);
 }
@@ -55,6 +57,11 @@ void AppController::onDataReady(ip2Data::GeolocationData data)
         _currentData->setLatitude(data.latitude);
         _currentData->setLongitude(data.longitude);
     }
+}
+
+void AppController::onErrorOccured()
+{
+    setProcessing(false);
 }
 
 void AppController::setEmptyValues()

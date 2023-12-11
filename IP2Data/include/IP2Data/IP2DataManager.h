@@ -17,9 +17,11 @@ public:
 
 signals:
     void signalDataReady(GeolocationData data);
+    void signalErrorOccurred();
 
 private slots:
     void onDataReady(ip2Data::GeolocationData data);
+    void onErrorOccured();
 
 private:
     server::Server _server;

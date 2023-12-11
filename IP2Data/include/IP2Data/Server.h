@@ -16,6 +16,7 @@ public:
 
 signals:
     void signalDataReady(GeolocationData data);
+    void signalErrorOccurred();
 
 private slots:
     void parseData();
