@@ -9,7 +9,11 @@ int main(int argc, char *argv[])
     QCoreApplication app(argc, argv);
     int status = 0;
     auto runTest = [&status, argc, argv](QObject* obj) {
-        status |= QTest::qExec(obj, argc, argv);
+        if(obj)
+        {
+            status |= QTest::qExec(obj, argc, argv);
+            delete obj;
+        }
     };
 
     runTest(new ip2Data::ServerTest);
